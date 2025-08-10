@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSIRT Capacity Building in Asia | WP3 Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #017CA5;
+            --secondary: #5DBEDB;
+            --body: #F1F5F8;
+            --text: #1D1D1B;
+            --secondary-dark: #1F3F56;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--body);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary-dark) 100%);
+            color: white;
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .logo-container img {
+            height: 60px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container img:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            padding: 0.5rem 1rem;
+            background: var(--secondary);
+            color: var(--secondary-dark);
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+        }
+
+        .section {
+            background: white;
+            margin: 2rem 0;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .section h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
+        }
+
+        .section h3 {
+            color: var(--secondary-dark);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Countries Grid */
+        .countries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .country-tag {
+            background: var(--body);
+            border: 2px solid var(--secondary);
+            padding: 0.8rem;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .country-tag:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        /* Activities List */
+        .activities-list {
+            list-style: none;
+        }
+
+        .activities-list li {
+            background: var(--body);
+            margin: 1rem 0;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .activities-list li:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .activity-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Outcomes */
+        .outcomes-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .outcome-card {
+            background: linear-gradient(135deg, white 0%, var(--body) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .outcome-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .outcome-title {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* SDG Section */
+        .sdg-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .sdg-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            min-width: 200px;
+            transition: transform 0.3s ease;
+        }
+
+        .sdg-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .sdg-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .sdg-title {
+            color: var(--secondary-dark);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary-dark);
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 2rem 1rem;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            .logo-container {
+                gap: 1rem;
+            }
+
+            .logo-container img {
+                height: 40px;
+            }
+
+            .nav-container {
+                gap: 1rem;
+            }
+
+            .nav-item {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .section {
+                padding: 1.5rem 1rem;
+            }
+
+            .logo-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="images/logos/tein-logo.png" alt="TEIN CC" />
+                    <img src="images/logos/asia-connect-logo.png" alt="Asia Connect" />
+                    <img src="images/logos/eu-logo.png" alt="European Union" />
+                </div>
+                <h1>CSIRT Capacity Building in Asia</h1>
+                <p class="subtitle">Providing Security Trainings and Facilitating Creation of a Trusted Information Sharing Platform</p>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <a href="#overview" class="nav-item">Overview</a>
+                <a href="#objectives" class="nav-item">Objectives</a>
+                <a href="#activities" class="nav-item">Activities</a>
+                <a href="#outcomes" class="nav-item">Outcomes</a>
+                <a href="#impact" class="nav-item">Impact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <section id="overview" class="section">
+                <h2>Project Overview</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">16</div>
+                        <div class="stat-label">Beneficiary Countries</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">2</div>
+                        <div class="stat-label">Major Training Events</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">2018</div>
+                        <div class="stat-label">Project Year</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">WP3</div>
+                        <div class="stat-label">Work Package</div>
+                    </div>
+                </div>
+
+                <p>This project focused on enhancing cybersecurity incident response capabilities in the Asia-Pacific region by providing TRANSITS I trainings, fostering trust among stakeholders, and encouraging collaboration through CSIRT meetings. The initiative exceeded expectations by catalyzing the formation of multiple new CSIRTs and laying the groundwork for sustainable regional cybersecurity cooperation.</p>
+
+                <h3>Beneficiary Countries</h3>
+                <div class="countries-grid">
+                    <div class="country-tag">Afghanistan</div>
+                    <div class="country-tag">Bangladesh</div>
+                    <div class="country-tag">Bhutan</div>
+                    <div class="country-tag">Cambodia</div>
+                    <div class="country-tag">India</div>
+                    <div class="country-tag">Indonesia</div>
+                    <div class="country-tag">Laos</div>
+                    <div class="country-tag">Malaysia</div>
+                    <div class="country-tag">Nepal</div>
+                    <div class="country-tag">Pakistan</div>
+                    <div class="country-tag">Philippines</div>
+                    <div class="country-tag">Sri Lanka</div>
+                    <div class="country-tag">Thailand</div>
+                    <div class="country-tag">Vietnam</div>
+                    <div class="country-tag">Mongolia</div>
+                    <div class="country-tag">Myanmar</div>
+                </div>
+            </section>
+
+            <section id="objectives" class="section">
+                <h2>Project Objectives</h2>
+                <p><strong>Primary Goal:</strong> To build a trusted R&E cybersecurity network in Asia-Pacific by delivering security trainings and fostering cross-border collaboration for CSIRT development.</p>
+                
+                <h3>Sub-objectives</h3>
+                <ul class="activities-list">
+                    <li>
+                        <div class="activity-title">Create Self-Sufficient Trusted Network</div>
+                        <p>Establish sustainable cybersecurity collaboration frameworks among regional institutions.</p>
+                    </li>
+                    <li>
+                        <div class="activity-title">Provide State-of-the-Art Training</div>
+                        <p>Deliver comprehensive TRANSITS I training modules to enhance incident response capabilities.</p>
+                    </li>
+                    <li>
+                        <div class="activity-title">Enable Local Training</div>
+                        <p>Develop train-the-trainer initiatives for sustainable knowledge transfer and capacity building.</p>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="activities" class="section">
+                <h2>Key Activities</h2>
+                <ul class="activities-list">
+                    <li>
+                        <div class="activity-title">TRANSITS I Training at APAN45 (Singapore)</div>
+                        <p>Delivered full TRANSITS I modules for the first time to CSIRT personnel from TEIN*CC partner institutions, addressing the lack of affordable, practical incident response training in the R&E sector.</p>
+                    </li>
+                    <li>
+                        <div class="activity-title">CSIRT in Asia Meeting (APAN45)</div>
+                        <p>Brought together participants to share region-specific incident response experiences and build trusted communication channels with a closed mailing list and wiki space.</p>
+                    </li>
+                    <li>
+                        <div class="activity-title">TRANSITS I Training at APAN46 (New Zealand)</div>
+                        <p>Repeated the four-module TRANSITS I training with a new group of regional participants, expanding CSIRT knowledge and supporting local team formation.</p>
+                    </li>
+                    <li>
+                        <div class="activity-title">Introduction to Risk Management Course</div>
+                        <p>Additional module developed by expert trainer Alf Moens, addressing foundational risk management principles based on participant interest.</p>
+                    </li>
+                    <li>
+                        <div class="activity-title">Trust Building & Human-Centric Discussion</div>
+                        <p>Session on "The Human Side of Trusted Services" by trainer Nicole Harris, promoting understanding of interpersonal dynamics in cybersecurity collaboration.</p>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="outcomes" class="section">
+                <h2>Key Outcomes</h2>
+                <div class="outcomes-list">
+                    <div class="outcome-card">
+                        <div class="outcome-title">PERN (Pakistan) CSIRT Team Established</div>
+                        <p>A new CSIRT team was launched by PERN, now engaging with FIRST and APCERT to support Pakistan's academic cybersecurity efforts through global collaboration and training.</p>
+                    </div>
+                    <div class="outcome-card">
+                        <div class="outcome-title">LEARN (Sri Lanka) CSIRT Team Formed</div>
+                        <p>LEARN created a CSIRT team following participation in the March 2018 CSIRT Capacity Building event, strengthening national cybersecurity within the academic sector.</p>
+                    </div>
+                    <div class="outcome-card">
+                        <div class="outcome-title">In-Progress NREN CERTs</div>
+                        <p>Bangladesh (BdREN) and Malaysia's (MYREN) NRENs are in the process of forming CERT teams, supported by project-enabled training and expert networking.</p>
+                    </div>
+                    <div class="outcome-card">
+                        <div class="outcome-title">Active Regional Collaboration</div>
+                        <p>Participants actively engaged through wiki and mailing list platforms, fostering continuous knowledge sharing and best practices exchange.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="impact" class="section">
+                <h2>Sustainable Development Goals</h2>
+                <p>This project contributes to multiple UN Sustainable Development Goals:</p>
+                <div class="sdg-container">
+                    <div class="sdg-item">
+                        <div class="sdg-number">4</div>
+                        <div class="sdg-title">Quality Education</div>
+                    </div>
+                    <div class="sdg-item">
+                        <div class="sdg-number">9</div>
+                        <div class="sdg-title">Industry, Innovation and Infrastructure</div>
+                    </div>
+                    <div class="sdg-item">
+                        <div class="sdg-number">17</div>
+                        <div class="sdg-title">Partnerships for the Goals</div>
+                    </div>
+                </div>
+
+                <h3>Future Directions</h3>
+                <ul class="activities-list">
+                    <li>
+                        <div class="activity-title">Train-the-Trainer Workshop</div>
+                        <p>Scheduled for APNIC48 in September 2019 to enable local training capabilities.</p>
+                    </li>
+                    <li>
+                        <div class="activity-title">Continued CSIRT Events</div>
+                        <p>APAN47 and APAN48 meetings planned for 2019 to maintain momentum and collaboration.</p>
+                    </li>
+                    <li>
+                        <div class="activity-title">Increased Outreach</div>
+                        <p>Enhanced engagement with underrepresented countries to ensure comprehensive regional coverage.</p>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 CSIRT Capacity Building in Asia - WP3 Project</p>
+                <p>Grant Contract ACA 2016/376-562 | 2nd Call</p>
+                <p>Building Trust, Sharing Knowledge, Strengthening Security</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect for navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                nav.style.backdropFilter = 'blur(10px)';
+            } else {
+                nav.style.background = 'white';
+                nav.style.backdropFilter = 'none';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'all 0.6s ease-out';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
